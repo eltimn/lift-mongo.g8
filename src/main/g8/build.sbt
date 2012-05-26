@@ -15,7 +15,7 @@ resolvers += "Liftmodules repo" at "https://repository-liftmodules.forge.cloudbe
     "net.liftmodules" %% "mongoauth" % (liftVersion+"-0.3"),
     "ch.qos.logback" % "logback-classic" % "1.0.0",
     "org.scalatest" %% "scalatest" % "1.6.1" % "test",
-    "org.mortbay.jetty" % "jetty" % "6.1.22" % "container"
+    "org.eclipse.jetty" % "jetty-webapp" % "7.1.0.RC1" % "container"
   )
 }
 
