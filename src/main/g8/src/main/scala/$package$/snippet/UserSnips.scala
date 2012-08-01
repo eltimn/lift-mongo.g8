@@ -15,6 +15,7 @@ import http.js.JsCmds._
 import util._
 import Helpers._
 
+import net.liftmodules.mongoauth.LoginRedirect
 import net.liftmodules.mongoauth.model.ExtSession
 
 sealed trait UserSnippet extends AppHelpers with Loggable {
@@ -122,7 +123,7 @@ object UserLogin extends Loggable {
               User.logUserIn(user, true)
               if (remember) User.createExtSession(user.id.is)
               else ExtSession.deleteExtCookie()
-              RedirectTo(Site.home.url)
+              RedirectTo(LoginRedirect.openOr(Site.home.url))
             case _ =>
               S.error("Invalid credentials")
               Noop
