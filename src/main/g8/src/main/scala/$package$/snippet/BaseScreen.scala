@@ -20,7 +20,7 @@ trait BaseScreen extends LiftScreen {
     cssCls.append(super.additionalAttributes)
   }
 
-  def displayOnly(fieldName: => String, html: NodeSeq) =
+  def displayOnly(fieldName: => String, html: => NodeSeq) =
     new Field {
       type ValueType = String
       override def name = fieldName
