@@ -9,7 +9,7 @@ the cloud providers and configure it in your props file. See config.MongoConfig 
 
 # Building
 
-This app uses sbt 0.11.3. To build for the first time, run:
+This app uses sbt 0.12. To build for the first time, run:
 
     bash\$ sbt
     > ~;container:start; container:reload /
@@ -17,7 +17,7 @@ This app uses sbt 0.11.3. To build for the first time, run:
 That will start the app and automatically reload it whenever sources are modified. It will be running
 on http://localhost:8080
 
-# User  Model
+# User Model
 
 This app implements the [Mongoauth Lift Module](https://github.com/eltimn/lift-mongoauth).
 The registration and login implementation is based on
