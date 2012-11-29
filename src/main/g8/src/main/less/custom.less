@@ -1,10 +1,6 @@
 // Override some defaults
 html, body {
   background-color: #eee;
-}
-
-body {
-  padding-top: 40px;
   padding-bottom: 40px;
 }
 
@@ -23,13 +19,6 @@ body {
 .hero-unit {
   h2 {
     font-size: 36px;
-  }
-}
-
-// "fix" body padding
-@media (min-width: 767px) {
-  body {
-    padding-top: 40px;
   }
 }
 
@@ -87,5 +76,12 @@ div.gravatar {
 
   img {
     padding-top:10px;
+  }
+}
+
+// fixes gap between navbar and section below it
+@media (max-width: @navbarCollapseWidth) {
+  .navbar-fixed-top {
+    margin-bottom: 0px;
   }
 }
