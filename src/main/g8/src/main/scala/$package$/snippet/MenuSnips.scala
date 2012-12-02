@@ -8,8 +8,9 @@ import scala.xml.NodeSeq
 import net.liftweb._
 import common._
 import http.{LiftRules, S}
-import sitemap.SiteMap
+import sitemap._
 import util.Helpers._
+import scala.xml.Text
 
 object GroupMenu extends AppHelpers {
   def render(in: NodeSeq): NodeSeq = {
@@ -21,10 +22,14 @@ object GroupMenu extends AppHelpers {
     } yield ({
       val currentClass = S.attr("current_class").openOr("current")
       sitemap.locForGroup(group) flatMap { loc =>
-        if (curLoc.name == loc.name)
-          <li class={currentClass}>{SiteMap.buildLink(loc.name)}</li>
+        val styles = if (curLoc.name == loc.name) currentClass else ""
+        if (loc.menu.kids.length == 0)
+          <li class={styles}>{SiteMap.buildLink(loc.name)}</li>
         else
-          <li>{SiteMap.buildLink(loc.name)}</li>
+          <li class={styles + " dropdown"}>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{loc.linkText.openOr(Text("Empty Name"))} <b class="caret"></b></a>
+            <ul class="dropdown-menu">{ for (kid <- loc.menu.kids) yield <li>{SiteMap.buildLink(kid.loc.name)}</li> }</ul>
+          </li>
       }
     }): NodeSeq
   }
