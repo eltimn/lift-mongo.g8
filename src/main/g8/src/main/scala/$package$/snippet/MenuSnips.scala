@@ -20,16 +20,22 @@ object GroupMenu extends AppHelpers {
       request <- S.request ?~ "Request is empty"
       curLoc <- request.location ?~ "Current location is empty"
     } yield ({
-      val currentClass = S.attr("current_class").openOr("current")
+      val currentClass = S.attr("current_class").openOr("active")
       sitemap.locForGroup(group) flatMap { loc =>
-        val styles = if (curLoc.name == loc.name) currentClass else ""
-        if (loc.menu.kids.length == 0)
+        if (loc.menu.kids.length == 0) {
+          val styles = if (curLoc.name == loc.name) currentClass else ""
           <li class={styles}>{SiteMap.buildLink(loc.name)}</li>
-        else
+        }
+        else {
+          val styles =
+            if (loc.menu.kids.exists { _.loc.name == curLoc.name }) currentClass
+            else ""
+
           <li class={styles + " dropdown"}>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{loc.linkText.openOr(Text("Empty Name"))} <b class="caret"></b></a>
             <ul class="dropdown-menu">{ for (kid <- loc.menu.kids) yield <li>{SiteMap.buildLink(kid.loc.name)}</li> }</ul>
           </li>
+        }
       }
     }): NodeSeq
   }
