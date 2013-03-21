@@ -22,25 +22,53 @@ html, body {
   }
 }
 
+// FORM FIELD FEEDBACK STATES
+// --------------------------
+
 /**
-  * Form override
+  * Default is to change the color of the help text to the same as the alert.
+  * This returns help text to original color.
   */
-form label {
-  font-weight: bold;
+.customFormFieldState(@groupColor) {
+  .help-block,
+  .help-inline {
+    color: lighten(@textColor, 15%); // lighten the text some for contrast
+  }
 }
 
-// for LiftScreen errors
-.field-error {
-  color: #b94a48;
+// Warning
+.control-group.warning {
+  .customFormFieldState(@warningText);
 }
-.field-warning {
-  color: #c09853;
+// Error
+.control-group.error {
+  .customFormFieldState(@errorText);
 }
-.field-success {
-  color: #468847;
+// Success
+.control-group.success {
+  .customFormFieldState(@successText);
 }
-.field-info {
-  color: #5bc0de;
+// Info
+.control-group.info {
+  .customFormFieldState(@infoText);
+}
+
+/**
+  * For coloring id notices
+  */
+.alert-block {
+  .warning {
+    color: @warningText;
+  }
+  .error {
+    color: @errorText;
+  }
+  .success {
+    color: @successText;
+  }
+  .info {
+    color: @infoText;
+  }
 }
 
 #user img {

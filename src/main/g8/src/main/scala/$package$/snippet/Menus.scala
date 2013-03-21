@@ -3,4 +3,4 @@ package snippet
 
 import net.liftmodules.extras.snippet._
 
-object Notices extends BsAlerts
+object Menus extends BsMenu

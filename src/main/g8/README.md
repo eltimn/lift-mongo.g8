@@ -1,7 +1,7 @@
 Twitter Bootstrap
 -----------------
 
-Bootstrap v2.1.1 is included.
+Bootstrap v2.2.2 is included.
 
 MongoDB
 -------
@@ -28,7 +28,7 @@ The [less-sbt](https://github.com/softprops/less-sbt) plugin is used to compile 
 * `src/main/less/styles.less` acts a manifest file that lists all of the other less files that are to be included in the build.
 * `src/main/less/variables.less` is for setting colors, fonts, etc.
 * `src/main/less/custom.less` is where you can add custom styles for your app.
-* `src/main/less/bootstrap-2.1.1` are the original files and should not be changed.
+* `src/main/less/bootstrap` are the original files and should not be changed.
 
 You can also add other less files to the build by adding them to styles.less.
 

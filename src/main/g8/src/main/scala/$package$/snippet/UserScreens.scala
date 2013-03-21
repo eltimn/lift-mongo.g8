@@ -2,7 +2,6 @@ package $package$
 package snippet
 
 import config.Site
-import lib.Gravatar
 import model._
 
 import scala.xml._
@@ -13,11 +12,13 @@ import http.{LiftScreen, S}
 import util.FieldError
 import util.Helpers._
 
+import net.liftmodules.extras.Gravatar
+
 /*
  * Use for editing the currently logged in user only.
  */
 sealed trait BaseCurrentUserScreen extends BaseScreen {
-  object userVar extends ScreenVar(User.currentUser.open_!)
+  object userVar extends ScreenVar(User.currentUser.openOr(User.createRecord))
 
   override def localSetup {
     Referer(Site.account.url)

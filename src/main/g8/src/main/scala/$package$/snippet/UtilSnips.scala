@@ -11,8 +11,3 @@ object ProductionOnly {
     if (Props.productionMode) in
     else NodeSeq.Empty
 }
-
-object ThrowException {
-  def render =
-    throw new Exception("This is only a test.")
-}

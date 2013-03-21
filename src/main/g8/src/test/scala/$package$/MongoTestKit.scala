@@ -19,29 +19,21 @@ trait MongoTestKit extends BeforeAndAfterAll {
     .replace(".", "_")
     .toLowerCase
 
-  def defaultServer = new ServerAddress("127.0.0.1", 27017)
-
-  // If you need more than one db, override this
-  def dbs: List[(MongoIdentifier, ServerAddress, String)] = List((DefaultMongoIdentifier, defaultServer, dbName))
-
   def debug = false
 
   override def beforeAll(configMap: Map[String, Any]) {
-    // define the dbs
-    dbs foreach { case (id, srvr, name) =>
-      MongoDB.defineDb(id, new Mongo(srvr), name)
-    }
+    // define the db
+    MongoDB.defineDb(DefaultMongoIdentifier, TestMongo.mongo, dbName)
   }
 
   override def afterAll(configMap: Map[String, Any]) {
     if (!debug) {
-      // drop the databases
-      dbs foreach { case (id, _, _) =>
-        MongoDB.use(id) { db => db.dropDatabase }
-      }
+      // drop the database
+      MongoDB.use(DefaultMongoIdentifier) { db => db.dropDatabase }
     }
-
-    // clear the mongo instances
-    MongoDB.close
   }
+}
+
+object TestMongo {
+  val mongo = new Mongo(new ServerAddress("127.0.0.1", 27017))
 }

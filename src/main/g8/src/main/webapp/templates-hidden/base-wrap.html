@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="$description$"><!-- Google will often use this as its description of your page/site. Make it good. -->
+    <meta name="description" content="$description$">
     <meta name="author" content="$name$">
     <meta name="Copyright" content="Copyright $name$ 2012. All Rights Reserved.">
 
@@ -14,10 +14,6 @@
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- javascript -->
-    <script src="/js/script.js"></script>
-
     <!-- fav and touch icons -->
     <!--
     <link rel="shortcut icon" href="/img/favicon.ico">
@@ -37,14 +33,14 @@
           </a>
           <a class="brand" href="/">$name$</a>
           <div class="nav-collapse collapse">
-            <ul class="nav">
-              <span lift="GroupMenu?group=topbar"></span>
-            </ul>
-            <span lift="UserTopbar"></span>
+            <ul data-lift="Menus.group?group=topbar" class="nav"></ul>
+            <span data-lift="UserTopbar"></span>
           </div>
         </div>
       </div>
     </div>
     <div id="content" class="container"></div><!-- /container -->
+    <!-- javascript -->
+    <script src="/js/script.js"></script>
   </body>
 </html>

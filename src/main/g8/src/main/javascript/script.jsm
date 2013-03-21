@@ -1,8 +1,14 @@
 # jquery
 libs/jquery-1.8.3.min.js
+libs/jquery.bsAlerts.min.js
+libs/jquery.bsFormAlerts.min.js
+libs/liftAjax.js
 
 # bootstrap
-libs/bootstrap-2.2.1.min.js
+libs/bootstrap-2.2.2.min.js
 
 # app
-app.js
+App.js
+
+# views
+views/user/Login.js

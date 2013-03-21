@@ -1,4 +1,4 @@
-<div lift="surround?with=base-wrap;at=content">
+<div data-lift="surround?with=base-wrap;at=content">
   <lift:head>
     <title lift="Menu.title">$name$: %*%</title>
   </lift:head>
@@ -7,7 +7,8 @@
     <div class="hero-unit">
       <div class="inner">
         <h2>$name$</h2>
-        <p><span lift="HelloWorld">
+        <p>
+          <span lift="HelloWorld">
           Welcome to your Lift app at <span id="time">Time goes here</span>
           </span>
         </p>
@@ -34,5 +35,5 @@
       </div>
     </div>
   </div>
-  <span lift="embed?what=/templates-hidden/parts/footer"></span>
+  <span data-lift="embed?what=/templates-hidden/parts/footer"></span>
 </div>

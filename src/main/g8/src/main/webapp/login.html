@@ -1,8 +1,8 @@
-<div lift="surround?with=default;at=content">
-  <div lift="Notices"></div>
+<div data-lift="surround?with=default;at=content">
+  <div data-lift="Notices"></div>
   <div class="row">
     <div class="span12">
-      <form lift="Form.ajax?class=form-horizontal">
+      <form data-lift="Form.ajax?class=form-horizontal">
         <span lift="UserLogin">
           <fieldset>
             <div class="control-group">
@@ -10,7 +10,7 @@
               <div class="controls">
                 <p><strong>Enter your email address:</strong></p>
                 <input class="xlarge" maxlength="254" id="id_email" size="32" name="email" type="text" value="" />
-                <span lift="Notices.id?id=id_email_err"></span>
+                <span data-alertid="id_email_err" class="notice-block"></span>
               </div>
             </div>
             <div class="control-group">
@@ -31,11 +31,10 @@
             <div class="control-group">
               <div class="controls">
                 <input class="xlarge" id="id_password" />
-                <span lift="Notices.id?id=id_password_err"></span>
+                <span data-alertid="id_password_err" class="notice-block"></span>
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="remember"></label>
               <div class="controls">
                 <label class="checkbox">
                   <input class="xlarge" name="remember" />
@@ -53,9 +52,11 @@
       </form>
     </div>
   </div>
-  <script type="text/javascript">
-  \$(document).ready(function() {
-    app.login.startMonitor();
-  });
-  </script>
+  <tail>
+    <script>
+    \$(document).ready(function() {
+      App.views.user.Login.init();
+    });
+    </script>
+  </tail>
 </div>

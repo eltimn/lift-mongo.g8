@@ -1,6 +1,7 @@
 package bootstrap.liftweb
 
 import scala.xml.{Null, UnprefixedAttribute}
+import javax.mail.internet.MimeMessage
 
 import net.liftweb._
 import common._
@@ -8,12 +9,10 @@ import http._
 import util._
 import util.Helpers._
 
-import $package$._
-import config._
-import lib.Gravatar
-import model.{SystemUser, User}
-import snippet.Notices
+import $package$.config._
+import $package$.model.{SystemUser, User}
 
+import net.liftmodules.extras.{Gravatar, LiftExtras}
 import net.liftmodules.mongoauth.MongoAuth
 
 /**
@@ -75,7 +74,30 @@ class Boot extends Loggable {
     // Force the request to be UTF-8
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
-    // Use custom code for notices
-    Notices.init()
+    // Init Extras
+    LiftExtras.init()
+
+    // don't include the liftAjax.js code. It's served statically.
+    LiftRules.autoIncludeAjaxCalc.default.set(() => (session: LiftSession) => false)
+
+    // Mailer
+    Mailer.devModeSend.default.set((m: MimeMessage) => logger.info("Dev mode message:\n" + prettyPrintMime(m)))
+    Mailer.testModeSend.default.set((m: MimeMessage) => logger.info("Test mode message:\n" + prettyPrintMime(m)))
+  }
+
+  private def prettyPrintMime(m: MimeMessage): String = {
+    val buf = new StringBuilder
+    val hdrs = m.getAllHeaderLines
+    while (hdrs.hasMoreElements)
+      buf ++= hdrs.nextElement.toString + "\n"
+
+    val out =
+      """
+        |%s
+        |====================================
+        |%s
+      """.format(buf.toString, m.getContent.toString).stripMargin
+
+    out
   }
 }

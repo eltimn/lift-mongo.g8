@@ -1,7 +1,7 @@
 package $package$
 package model
 
-class UserSpec extends MongoBaseSpec {
+class UserSpec extends MongoBaseSpec with WithSessionSpec {
   "User" should {
     "create, validate, save, and retrieve properly" in {
 

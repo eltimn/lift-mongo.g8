@@ -2,7 +2,6 @@ package $package$
 package snippet
 
 import config.Site
-import lib.{Gravatar, AppHelpers}
 import model.{User, LoginCredentials}
 
 import scala.xml._
@@ -15,10 +14,11 @@ import http.js.JsCmds._
 import util._
 import Helpers._
 
+import net.liftmodules.extras.{Gravatar, SnippetHelper}
 import net.liftmodules.mongoauth.LoginRedirect
 import net.liftmodules.mongoauth.model.ExtSession
 
-sealed trait UserSnippet extends AppHelpers with Loggable {
+sealed trait UserSnippet extends SnippetHelper with Loggable {
 
   protected def user: Box[User]
 
@@ -163,8 +163,6 @@ object UserLogin extends Loggable {
         Noop
       }
     }
-
-    def cancel() = S.seeOther(Site.home.url); Noop
 
     "#id_email [value]" #> User.loginCredentials.is.email &
     "#id_password" #> SHtml.password(password, password = _) &

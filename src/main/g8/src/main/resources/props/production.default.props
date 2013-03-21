@@ -1,6 +1,3 @@
 mail.smtp.host=smtp.gmail.com
 mail.smtp.user=
 mail.smtp.pass=
-mongo.default.url=
-mongo.default.user=
-mongo.default.pwd=
