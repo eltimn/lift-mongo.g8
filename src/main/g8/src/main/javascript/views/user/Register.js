@@ -1,23 +1,46 @@
 App.namespace("views.user");
 
-$(document).ready(function() {
-    $('.confirm-field').bind('input', function() { 
-        confirmPassword();
-    });
-//    $('.confirm-field').keyup(confirmPassoword());
-});
+// Global object for localizable strings per 
+// https://groups.google.com/forum/?fromgroups=#!topic/liftweb/DwUOKgmiV-0
+window.strings = {
+    PasswordsMustMatch: "Passwords must match"
+};
 
-function confirmPassword() {
+$(document).ready(function() {
 	var confirm = $('.confirm-field');
 	var password = $('.password-field');
 	
-	if(confirm.val() !== password.val()) {
+    confirm.change(function() { 
+        checkConfirmError();
+    });
+    password.change(function() { 
+        checkConfirmError();
+    });
+    password.bind('input change keyup', function() {
+    	checkConfirmClear();
+    });
+    confirm.bind('input change keyup', function() {
+    	checkConfirmClear();
+    });
+});
+
+function checkConfirmError() {
+	var confirm = $('.confirm-field');
+	var password = $('.password-field');
+	
+	if(confirm.val() !== password.val() && confirm.val().length > 0 && password.val().length > 0) {
 		if(confirm.next().children().length == 0) {
-			confirm.next().append('<ul><li class="error">Passwords must match</li></ul>');
+			confirm.next().append('<ul><li class="error">'+window.strings.PasswordsMustMatch+'</li></ul>');
 			confirm.parent().parent().addClass("error")
 		}
 	}
-	else {
+};
+
+function checkConfirmClear() {
+	var confirm = $('.confirm-field');
+	var password = $('.password-field');
+	
+	if(confirm.val() === password.val()) {
 		confirm.next().children().remove()
 		confirm.parent().parent().removeClass("error")
 	}
