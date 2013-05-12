@@ -11,8 +11,8 @@ App.views.user.Register = (function($) {
 	};
 
 	inst.init = function() {
-		inst.confirm = $('.confirm-field');
-		inst.password = $('.password-field');
+		inst.confirm = $('#confirm-field');
+		inst.password = $('#password-field');
 		
 		inst.confirm.change(function() {
 			inst.checkConfirmError();
