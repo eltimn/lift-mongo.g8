@@ -2,31 +2,33 @@ App.namespace("views.user");
 App.views.user.Register = (function($) {
 	"use strict";
 
+	var inst = {};
+	
 	// Global object for localizable strings per
 	// https://groups.google.com/forum/?fromgroups=#!topic/liftweb/DwUOKgmiV-0
-	window.strings = {
+	inst.strings = {
 		PasswordsMustMatch : "Passwords must match"
 	};
 
-	$(document).ready(function() {
+	inst.init = function() {
 		var confirm = $('.confirm-field');
 		var password = $('.password-field');
 
 		confirm.change(function() {
-			checkConfirmError();
+			inst.checkConfirmError();
 		});
 		password.change(function() {
-			checkConfirmError();
+			inst.checkConfirmError();
 		});
 		password.bind('input change keyup', function() {
-			checkConfirmClear();
+			inst.checkConfirmClear();
 		});
 		confirm.bind('input change keyup', function() {
-			checkConfirmClear();
+			inst.checkConfirmClear();
 		});
-	});
+	};
 
-	function checkConfirmError() {
+	inst.checkConfirmError = function () {
 		var confirm = $('.confirm-field');
 		var password = $('.password-field');
 
@@ -35,14 +37,14 @@ App.views.user.Register = (function($) {
 			if (confirm.next().children().length == 0) {
 				confirm.next().append(
 						'<ul><li class="error">'
-								+ window.strings.PasswordsMustMatch
+								+ inst.strings.PasswordsMustMatch
 								+ '</li></ul>');
 				confirm.parent().parent().addClass("error")
 			}
 		}
 	};
 
-	function checkConfirmClear() {
+	inst.checkConfirmClear = function () {
 		var confirm = $('.confirm-field');
 		var password = $('.password-field');
 
