@@ -11,46 +11,40 @@ App.views.user.Register = (function($) {
 	};
 
 	inst.init = function() {
-		var confirm = $('.confirm-field');
-		var password = $('.password-field');
-
-		confirm.change(function() {
+		inst.confirm = $('.confirm-field');
+		inst.password = $('.password-field');
+		
+		inst.confirm.change(function() {
 			inst.checkConfirmError();
 		});
-		password.change(function() {
+		inst.password.change(function() {
 			inst.checkConfirmError();
 		});
-		password.bind('input change keyup', function() {
+		inst.password.bind('input change keyup', function() {
 			inst.checkConfirmClear();
 		});
-		confirm.bind('input change keyup', function() {
+		inst.confirm.bind('input change keyup', function() {
 			inst.checkConfirmClear();
 		});
 	};
 
 	inst.checkConfirmError = function () {
-		var confirm = $('.confirm-field');
-		var password = $('.password-field');
-
-		if (confirm.val() !== password.val() && confirm.val().length > 0
-				&& password.val().length > 0) {
-			if (confirm.next().children().length == 0) {
-				confirm.next().append(
+		if (inst.confirm.val() !== inst.password.val() && inst.confirm.val().length > 0
+				&& inst.password.val().length > 0) {
+			if (inst.confirm.next().children().length == 0) {
+				inst.confirm.next().append(
 						'<ul><li class="error">'
 								+ inst.strings.PasswordsMustMatch
 								+ '</li></ul>');
-				confirm.parent().parent().addClass("error")
+				inst.confirm.parent().parent().addClass("error")
 			}
 		}
 	};
 
 	inst.checkConfirmClear = function () {
-		var confirm = $('.confirm-field');
-		var password = $('.password-field');
-
-		if (confirm.val() === password.val()) {
-			confirm.next().children().remove()
-			confirm.parent().parent().removeClass("error")
+		if (inst.confirm.val() === inst.password.val()) {
+			inst.confirm.next().children().remove()
+			inst.confirm.parent().parent().removeClass("error")
 		}
 	};
 	
