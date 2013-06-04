@@ -38,6 +38,9 @@ object BuildSettings {
     lessSettings ++
     closureSettings ++
     seq(
+    
+      resolvers += "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+    
       buildTime := System.currentTimeMillis.toString,
 
       // build-info
