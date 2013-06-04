@@ -10,8 +10,10 @@ import sbtclosure.SbtClosurePlugin._
 
 object BuildSettings {
   object Ver {
-    val lift = "2.5-RC4"
-    val lift_edition = "2.5"
+    //    val lift = "2.5"
+    //    val lift_edition = "2.5"
+    val lift = "3.0-SNAPSHOT"
+    val lift_edition = "3.0"
     val jetty = "8.1.8.v20121106"
   }
 
@@ -36,6 +38,9 @@ object BuildSettings {
     lessSettings ++
     closureSettings ++
     seq(
+    
+      resolvers += "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+    
       buildTime := System.currentTimeMillis.toString,
 
       // build-info
