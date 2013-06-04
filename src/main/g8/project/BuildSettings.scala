@@ -10,8 +10,10 @@ import sbtclosure.SbtClosurePlugin._
 
 object BuildSettings {
   object Ver {
-    val lift = "2.5-RC6"
-    val lift_edition = "2.5"
+    //    val lift = "2.5"
+    //    val lift_edition = "2.5"
+    val lift = "3.0-SNAPSHOT"
+    val lift_edition = "3.0"
     val jetty = "8.1.8.v20121106"
   }
 
