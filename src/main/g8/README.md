@@ -1,7 +1,7 @@
 Twitter Bootstrap
 -----------------
 
-Bootstrap v2.2.2 is included.
+Bootstrap v2.3.2 is included.
 
 MongoDB
 -------
