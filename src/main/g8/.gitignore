@@ -55,6 +55,3 @@ project/plugins/project
 
 # Pax Runner (for easy OSGi launching)
 runner
-
-# Properties files can contain sensitive data
-*.props
