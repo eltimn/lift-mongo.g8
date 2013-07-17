@@ -1,6 +1,8 @@
 package $package$
 
-import org.scalatest.WordSpec
+import config.MongoConfig
+
+import org.scalatest._
 import org.scalatest.matchers.ShouldMatchers
 
 import net.liftweb._
@@ -9,13 +11,21 @@ import http._
 import util._
 import Helpers._
 
-trait BaseSpec extends WordSpec with ShouldMatchers
-trait MongoBaseSpec extends BaseSpec with MongoTestKit
+trait BaseWordSpec extends WordSpec with ShouldMatchers
 
-trait WithSessionSpec extends BaseSpec {
-  def session = new LiftSession("", randomString(20), Empty)
+trait BaseMongoWordSpec extends BaseWordSpec with MongoSuite {
+  def mongoIdentifier = MongoConfig.identifier
+}
+trait BaseMongoSessionWordSpec extends BaseWordSpec with MongoSessionSuite {
+  def mongoIdentifier = MongoConfig.identifier
+}
 
-  override def withFixture(test: NoArgTest) {
-    S.initIfUninitted(session) { test() }
+trait WithSessionSpec extends AbstractSuite { this: Suite =>
+
+  protected def session = new LiftSession("", randomString(20), Empty)
+
+  abstract override def withFixture(test: NoArgTest) {
+    S.initIfUninitted(session) { super.withFixture(test) }
   }
 }
+

@@ -9,7 +9,7 @@ import http._
 import util._
 import Helpers._
 
-class HelloWorldSpec extends BaseSpec {
+class HelloWorldSpec extends BaseWordSpec {
   val session = new LiftSession("", randomString(20), Empty)
   val stableTime = now
 

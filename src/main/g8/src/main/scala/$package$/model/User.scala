@@ -1,6 +1,8 @@
 package $package$
 package model
 
+import lib.RogueMetaRecord
+
 import org.bson.types.ObjectId
 import org.joda.time.DateTime
 
