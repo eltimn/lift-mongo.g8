@@ -44,13 +44,9 @@ sealed trait BasePasswordScreen {
   val passwordField = password(pwdName, "", trim,
     valMinLen(pwdMinLength, "Password must be at least "+pwdMinLength+" characters"),
     valMaxLen(pwdMaxLength, "Password must be "+pwdMaxLength+" characters or less"),
-    "tabindex" -> "1", 
-    FormFieldId("password-field")
+    "tabindex" -> "1"
   )
-  val confirmPasswordField = password("Confirm Password", "", trim, 
-    "tabindex" -> "1", 
-    FormFieldId("confirm-field")
-  )
+  val confirmPasswordField = password("Confirm Password", "", trim, "tabindex" -> "1")
 
   def passwordsMustMatch(): Errors = {
     if (passwordField.is != confirmPasswordField.is)

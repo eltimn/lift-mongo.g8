@@ -12,4 +12,3 @@ App.js
 
 # views
 views/user/Login.js
-views/user/Register.js
