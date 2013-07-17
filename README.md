@@ -25,13 +25,3 @@ Versions
 
 Instead of allowing the user to select Scala, Lift, and SBT versions, this template uses predetermined versions.
 This will hopefully make it easier for new users to get the proper versions of dependent libraries.
-
-Release Notes
-=============
-
-
-Upgrade Plan
-============
-
-* Update Gravatar imports
-* Replace AppHelpers with SnippetHelper
