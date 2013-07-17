@@ -11,7 +11,7 @@ object LiftProjectBuild extends Build {
       Seq(
         "net.liftweb" %% "lift-webkit" % Ver.lift % "compile",
         "net.liftweb" %% "lift-mongodb-record" % Ver.lift % "compile",
-        "net.liftmodules" %% "mongoauth" % (Ver.lift+"-0.4") % "compile",
+        "net.liftmodules" %% ("mongoauth_"+Ver.lift_edition) % "0.4" % "compile",
         "net.liftmodules" %% ("extras_"+Ver.lift_edition) % "0.1" % "compile",
         "org.eclipse.jetty" % "jetty-webapp" % Ver.jetty % "container",
         "ch.qos.logback" % "logback-classic" % "1.0.6" % "compile",

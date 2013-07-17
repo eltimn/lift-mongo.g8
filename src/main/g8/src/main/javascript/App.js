@@ -1,4 +1,4 @@
-(function(window, $) {
+(function(window) {
   "use strict";
 
   window.App = (function() {
@@ -35,5 +35,5 @@
 
     return inst;
   }());
-})(this, jQuery);
+})(this);
 

@@ -1,6 +1,6 @@
 package $package$
 
-import org.scalatest.{BeforeAndAfterAll, WordSpec}
+import org.scalatest.{BeforeAndAfterAll, Suite}
 
 import net.liftweb._
 import mongodb._
@@ -11,11 +11,14 @@ import com.mongodb.{Mongo, ServerAddress}
   * Creates a Mongo instance named after the class.
   * Therefore, each Spec class shares the same database.
   * Database is dropped after.
+  *
+  * Note: Does not work with parallel execution. Be sure to have the following SBT setting:
+  * parallelExecution in Test := false
   */
 trait MongoTestKit extends BeforeAndAfterAll {
-  this: WordSpec =>
+  this: Suite =>
 
-  def dbName = "test_"+this.getClass.getName
+  def dbName = "$name;format="norm"$_test_"+this.getClass.getName
     .replace(".", "_")
     .toLowerCase
 
