@@ -12,7 +12,7 @@ object BuildSettings {
   object Ver {
     val lift = "2.5"
     val lift_edition = "2.5"
-    val jetty = "8.1.8.v20121106"
+    val jetty = "8.1.11.v20130520"
   }
 
   val buildTime = SettingKey[String]("build-time")
@@ -21,7 +21,7 @@ object BuildSettings {
     name := "$name;format="norm"$",
     version := "$project_version$",
     organization := "$sbt_organization$",
-    scalaVersion := "2.10.0",
+    scalaVersion := "2.10.2",
     scalacOptions <<= scalaVersion map { sv: String =>
       if (sv.startsWith("2.10."))
         Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps", "-language:implicitConversions")

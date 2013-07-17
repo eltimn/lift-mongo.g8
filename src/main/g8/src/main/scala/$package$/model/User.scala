@@ -69,7 +69,7 @@ class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
   def whenCreated: DateTime = new DateTime(id.is.getTime)
 }
 
-object User extends User with ProtoAuthUserMeta[User] with Loggable {
+object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User] with Loggable {
   import mongodb.BsonDSL._
 
   override def collectionName = "user.users"

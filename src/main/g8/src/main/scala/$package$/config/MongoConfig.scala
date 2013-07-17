@@ -3,13 +3,17 @@ package config
 
 import net.liftweb._
 import common._
+import http._
 import json._
 import mongodb._
 import util.Props
 
 import com.mongodb.{DBAddress, Mongo}
 
-object MongoConfig extends Loggable {
+object MongoConfig extends Factory with Loggable {
+
+  // configure your MongoMetaRecords to use this. See lib/RogueMetaRecord.scala.
+  val identifier = new FactoryMaker[MongoIdentifier](DefaultMongoIdentifier) {}
 
   def init() {
     /**
