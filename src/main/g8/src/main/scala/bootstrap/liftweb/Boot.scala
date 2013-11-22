@@ -30,8 +30,8 @@ class Boot extends Loggable {
     MongoAuth.authUserMeta.default.set(User)
     MongoAuth.loginTokenAfterUrl.default.set(Site.password.url)
     MongoAuth.siteName.default.set("$name$")
-    MongoAuth.systemEmail.default.set(SystemUser.user.email.is)
-    MongoAuth.systemUsername.default.set(SystemUser.user.name.is)
+    MongoAuth.systemEmail.default.set(SystemUser.user.email.get)
+    MongoAuth.systemUsername.default.set(SystemUser.user.name.get)
 
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)

@@ -8,7 +8,7 @@ import json._
 import mongodb._
 import util.Props
 
-import com.mongodb.{DBAddress, Mongo}
+import com.mongodb.{DBAddress, MongoClient}
 
 object MongoConfig extends Factory with Loggable {
 
@@ -36,7 +36,7 @@ object MongoConfig extends Factory with Loggable {
       case (Full(user), Full(pwd)) =>
         MongoDB.defineDbAuth(
           DefaultMongoIdentifier,
-          new Mongo(defaultDbAddress),
+          new MongoClient(defaultDbAddress),
           defaultDbAddress.getDBName,
           user,
           pwd
@@ -45,7 +45,7 @@ object MongoConfig extends Factory with Loggable {
       case _ =>
         MongoDB.defineDb(
           DefaultMongoIdentifier,
-          new Mongo(defaultDbAddress),
+          new MongoClient(defaultDbAddress),
           defaultDbAddress.getDBName
         )
         logger.info("MongoDB inited: %s".format(defaultDbAddress.toString))

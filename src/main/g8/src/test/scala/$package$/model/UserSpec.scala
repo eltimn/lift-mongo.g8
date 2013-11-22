@@ -26,9 +26,9 @@ class UserSpec extends BaseMongoSessionWordSpec {
       newUser.save
 
       // retrieve from db and compare
-      val userFromDb = User.find(newUser.id.is)
+      val userFromDb = User.find(newUser.id.get)
       userFromDb.isDefined should equal (true)
-      userFromDb.map(u => u.id.is should equal (newUser.id.is))
+      userFromDb.map(u => u.id.get should equal (newUser.id.get))
     }
 
     "Support password properly" in {
@@ -51,11 +51,11 @@ class UserSpec extends BaseMongoSessionWordSpec {
       newUser.save
 
       // retrieve from db and compare
-      val userFromDb = User.find(newUser.id.is)
+      val userFromDb = User.find(newUser.id.get)
 
       userFromDb.isDefined should equal (true)
       userFromDb.map(u => {
-        u.id.is should equal (newUser.id.is)
+        u.id.get should equal (newUser.id.get)
         u.password.isMatch("xxxxx") should equal (false)
         u.password.isMatch(userPass) should equal (true)
       })

@@ -9,11 +9,11 @@ import mongodb._
 import util.StackableMaker
 import util.Helpers.randomString
 
-import com.mongodb.{Mongo, ServerAddress}
+import com.mongodb.{MongoClient, ServerAddress}
 
 // The sole mongo object for testing
 object TestMongo {
-  val mongo = new Mongo(new ServerAddress("127.0.0.1", 27017))
+  val mongo = new MongoClient(new ServerAddress("127.0.0.1", 27017))
 }
 
 /**

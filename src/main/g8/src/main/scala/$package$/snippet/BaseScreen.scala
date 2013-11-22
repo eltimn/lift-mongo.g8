@@ -6,19 +6,12 @@ import http.js._
 import http.js.JsCmds._
 import http.js.JE._
 
-import net.liftmodules.extras.BootstrapScreen
+import net.liftmodules.extras.Bootstrap3Screen
 
 /*
- * Base all LiftScreens off this. Currently configured to use bootstrap.
+ * Base all LiftScreens off this. Currently configured to use bootstrap 3.
  */
-abstract class BaseScreen extends BootstrapScreen {
+abstract class BaseScreen extends Bootstrap3Screen {
   override def defaultToAjax_? = true
-  def cssErrorClass = "error" // BS3 = has-error
-
-  override protected def afterScreenLoad: JsCmd = JsRaw("""
-    |\$(".form-alert").each(function() {
-    |  \$(this).closest("div.control-group").addClass("%s");
-    |});
-    """.format(cssErrorClass).stripMargin)
 }
 
