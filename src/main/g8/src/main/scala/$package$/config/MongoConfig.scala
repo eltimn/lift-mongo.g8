@@ -13,7 +13,7 @@ import com.mongodb.{DBAddress, MongoClient}
 object MongoConfig extends Factory with Loggable {
 
   // configure your MongoMetaRecords to use this. See lib/RogueMetaRecord.scala.
-  val identifier = new FactoryMaker[MongoIdentifier](DefaultMongoIdentifier) {}
+  val defaultId = new FactoryMaker[MongoIdentifier](DefaultMongoIdentifier) {}
 
   def init() {
     /**

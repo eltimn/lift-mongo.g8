@@ -14,10 +14,10 @@ import Helpers._
 trait BaseWordSpec extends WordSpec with ShouldMatchers
 
 trait BaseMongoWordSpec extends BaseWordSpec with MongoSuite {
-  def mongoIdentifier = MongoConfig.identifier
+  def mongoIdentifier = MongoConfig.defaultId
 }
 trait BaseMongoSessionWordSpec extends BaseWordSpec with MongoSessionSuite {
-  def mongoIdentifier = MongoConfig.identifier
+  def mongoIdentifier = MongoConfig.defaultId
 }
 
 trait WithSessionSpec extends AbstractSuite { this: Suite =>

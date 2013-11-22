@@ -177,7 +177,7 @@ object UserTopbar {
   def render = {
     User.currentUser match {
       case Full(user) =>
-        <ul class="nav pull-right" id="user">
+        <ul class="nav navbar-nav navbar-right" id="user">
           <li class="dropdown" data-dropdown="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               {Gravatar.imgTag(user.email.get, 20)}
@@ -193,9 +193,7 @@ object UserTopbar {
           </li>
         </ul>
       case _ if (S.request.flatMap(_.location).map(_.name).filterNot(it => List("Login", "Register").contains(it)).isDefined) =>
-        <ul class="nav pull-right">
-          <li><a href="/login">Sign In</a></li>
-        </ul>
+        <a href="/login" class="btn btn-default navbar-btn navbar-right">Sign In</a>
       case _ => NodeSeq.Empty
     }
   }

@@ -5,26 +5,28 @@
   <!-- <wizard:errors> <div> <ul> <wizard:item> <li> <wizard:bind/> </li> </wizard:item> </ul> </div> </wizard:errors> -->
   <fieldset>
     <wizard:fields>
-      <div class="control-group" lift:bind="wizard:line">
+      <div class="form-group" lift:bind="wizard:line">
         <wizard:label><label class="control-label" wizard:for=""><wizard:bind></wizard:bind></label></wizard:label>
         <div class="controls">
-          <wizard:form></wizard:form>
-          <wizard:help><span class="help-inline"><wizard:bind></wizard:bind></span></wizard:help>
+          <wizard:form class="form-control"></wizard:form>
           <wizard:field_errors>
             <ul class="form-alert">
               <wizard:error>
-                <li class="text-error"><wizard:bind></wizard:bind></li>
+                <li class="text-danger"><wizard:bind></wizard:bind></li>
               </wizard:error>
             </ul>
           </wizard:field_errors>
+          <wizard:help><span class="help-block"><wizard:bind></wizard:bind></span></wizard:help>
         </div>
       </div>
     </wizard:fields>
   </fieldset>
   <div class="form-actions">
-    <wizard:prev></wizard:prev>
-    <wizard:next></wizard:next>
-    <wizard:cancel></wizard:cancel>
+    <div class="actions">
+      <!-- <wizard:prev></wizard:prev> -->
+      <wizard:next></wizard:next>
+      <wizard:cancel></wizard:cancel>
+    </div>
   </div>
   <wizard:screen_bottom><div><wizard:bind></wizard:bind></div></wizard:screen_bottom>
   <wizard:wizard_bottom><div><wizard:bind></wizard:bind></div></wizard:wizard_bottom>

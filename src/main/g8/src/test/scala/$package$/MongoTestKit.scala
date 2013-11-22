@@ -6,14 +6,17 @@ import net.liftweb._
 import common._
 import http._
 import mongodb._
-import util.StackableMaker
+import util.{Props, StackableMaker}
 import util.Helpers.randomString
 
 import com.mongodb.{MongoClient, ServerAddress}
 
 // The sole mongo object for testing
 object TestMongo {
-  val mongo = new MongoClient(new ServerAddress("127.0.0.1", 27017))
+  val mongo = new MongoClient(new ServerAddress(
+    Props.get("mongo.default.host", "127.0.0.1"),
+    Props.getInt("mongo.default.port", 27017)
+  ))
 }
 
 /**
