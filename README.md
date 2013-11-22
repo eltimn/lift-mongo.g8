@@ -11,7 +11,7 @@ Usage
 
 Install giter8 (g8) - [Readme](http://github.com/n8han/giter8#readme) for more information.
 
-Install SBT 0.12 - [Setup](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) for more information.
+Install SBT 0.13 - [Setup](http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html) for more information.
 
 In a shell, run the following in the parent directory of the new project:
 

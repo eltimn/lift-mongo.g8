@@ -1,8 +1,8 @@
 import sbt._
 import sbt.Keys._
 
-import com.github.siasia.WebPlugin.{container, webSettings}
-import com.github.siasia.PluginKeys._
+import com.earldouglas.xsbtwebplugin.WebPlugin.{container, webSettings}
+import com.earldouglas.xsbtwebplugin.PluginKeys._
 import sbtbuildinfo.Plugin._
 import less.Plugin._
 import sbtbuildinfo.Plugin._
@@ -10,9 +10,9 @@ import sbtclosure.SbtClosurePlugin._
 
 object BuildSettings {
   object Ver {
-    val lift = "2.5"
-    val lift_edition = "2.5"
-    val jetty = "8.1.11.v20130520"
+    val lift = "2.6-M1"
+    val lift_edition = "2.6"
+    val jetty = "8.1.13.v20130916"
   }
 
   val buildTime = SettingKey[String]("build-time")
@@ -21,7 +21,7 @@ object BuildSettings {
     name := "$name;format="norm"$",
     version := "$project_version$",
     organization := "$sbt_organization$",
-    scalaVersion := "2.10.2",
+    scalaVersion := "2.10.3",
     scalacOptions <<= scalaVersion map { sv: String =>
       if (sv.startsWith("2.10."))
         Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps", "-language:implicitConversions")
