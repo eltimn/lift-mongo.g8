@@ -1,11 +1,11 @@
 # jquery
-libs/jquery-1.9.1.min.js
+libs/jquery-1.10.2.min.js
 libs/jquery.bsAlerts.min.js
 libs/jquery.bsFormAlerts.min.js
 libs/liftAjax.js
 
 # bootstrap
-libs/bootstrap-2.3.2.min.js
+libs/bootstrap-3.0.2.min.js
 
 # app
 App.js
