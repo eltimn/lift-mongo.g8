@@ -6,7 +6,7 @@ import net.liftweb._
 import common._
 import http._
 import mongodb._
-import util.{Props, StackableMaker}
+import util._
 import util.Helpers.randomString
 
 import com.mongodb.{MongoClient, ServerAddress}
@@ -20,7 +20,7 @@ object TestMongo {
 }
 
 /**
-  * Creates a `MongoIdentifier` and database named after the class.
+  * Creates a `ConnectionIdentifier` and database named after the class.
   * Therefore, each Suite class shares the same database.
   * Database is dropped after all tests have been run in the suite.
   */
@@ -33,16 +33,16 @@ trait MongoBeforeAndAfterAll extends BeforeAndAfterAll {
 
   def debug = false // db won't be dropped if this is true
 
-  lazy val identifier = new MongoIdentifier {
+  lazy val identifier = new ConnectionIdentifier {
     val jndiName = dbName
   }
 
-  override def beforeAll(configMap: Map[String, Any]) {
+  override def beforeAll(configMap: ConfigMap) {
     // define the db
     MongoDB.defineDb(identifier, TestMongo.mongo, dbName)
   }
 
-  override def afterAll(configMap: Map[String, Any]) {
+  override def afterAll(configMap: ConfigMap) {
     if (!debug) { dropDb() }
   }
 
@@ -52,12 +52,12 @@ trait MongoBeforeAndAfterAll extends BeforeAndAfterAll {
 /**
   * Basic Mongo suite for running Mongo tests.
   */
-trait MongoSuite extends AbstractSuite with MongoBeforeAndAfterAll {
+trait MongoSuite extends SuiteMixin with MongoBeforeAndAfterAll {
   this: Suite =>
 
-  def mongoIdentifier: StackableMaker[MongoIdentifier]
+  def mongoIdentifier: StackableMaker[ConnectionIdentifier]
 
-  abstract override def withFixture(test: NoArgTest) {
+  abstract override def withFixture(test: NoArgTest) = {
     mongoIdentifier.doWith(identifier) {
       super.withFixture(test)
     }
@@ -67,15 +67,15 @@ trait MongoSuite extends AbstractSuite with MongoBeforeAndAfterAll {
 /**
   * Mongo suite running within a LiftSession.
   */
-trait MongoSessionSuite extends AbstractSuite with MongoBeforeAndAfterAll {
+trait MongoSessionSuite extends SuiteMixin with MongoBeforeAndAfterAll {
   this: Suite =>
 
-  def mongoIdentifier: StackableMaker[MongoIdentifier]
+  def mongoIdentifier: StackableMaker[ConnectionIdentifier]
 
   // Override with `val` to share session amongst tests.
   protected def session = new LiftSession("", randomString(20), Empty)
 
-  abstract override def withFixture(test: NoArgTest) {
+  abstract override def withFixture(test: NoArgTest) = {
     S.initIfUninitted(session) {
       mongoIdentifier.doWith(identifier) {
         super.withFixture(test)

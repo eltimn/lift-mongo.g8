@@ -2,15 +2,16 @@ App.namespace("views.user");
 App.views.user.Login = (function($) {
   "use strict";
 
-  var timeoutRtn = 0;
   var inst = {};
+
+  inst.timeoutRtn = 0;
 
   inst.init = function() {
     inst.startMonitor();
   };
 
   inst.startMonitor = function() {
-    self.timeoutRtn = setTimeout(App.views.user.Login.monitorPassword, 1000);
+    inst.timeoutRtn = setTimeout(App.views.user.Login.monitorPassword, 1000);
   };
 
   /**

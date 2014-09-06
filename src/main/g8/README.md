@@ -1,7 +1,7 @@
 Twitter Bootstrap
 -----------------
 
-Bootstrap v2.3.2 is included.
+Bootstrap v3.0.2 is included.
 
 MongoDB
 -------
@@ -9,10 +9,12 @@ MongoDB
 This app uses MongoDB. Therefore, you will need to either have it installed locally, or use one of
 the cloud providers and configure it in your props file. See config.MongoConfig for more info.
 
+A `fig.yml` file is included if you're using [fig](http://www.fig.sh/).
+
 Building
 --------
 
-This app requires sbt 0.12. To build for the first time, run:
+This app requires [sbt](http://www.scala-sbt.org/). To build for the first time, run:
 
     bash\$ sbt
     > ~;container:start; container:reload /

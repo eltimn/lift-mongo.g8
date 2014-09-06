@@ -10,7 +10,7 @@ import util._
 import util.Helpers._
 
 import $package$.config._
-import $package$.model.{SystemUser, User}
+import $package$.model.User
 
 import net.liftmodules.extras.{Gravatar, LiftExtras}
 import net.liftmodules.mongoauth.MongoAuth
@@ -30,8 +30,8 @@ class Boot extends Loggable {
     MongoAuth.authUserMeta.default.set(User)
     MongoAuth.loginTokenAfterUrl.default.set(Site.password.url)
     MongoAuth.siteName.default.set("$name$")
-    MongoAuth.systemEmail.default.set(SystemUser.user.email.get)
-    MongoAuth.systemUsername.default.set(SystemUser.user.name.get)
+    MongoAuth.systemEmail.default.set("$system_email$")
+    MongoAuth.systemUsername.default.set("$name$")
 
     // For S.loggedIn_? and TestCond.loggedIn/Out builtin snippet
     LiftRules.loggedInTest = Full(() => User.isLoggedIn)
@@ -78,7 +78,7 @@ class Boot extends Loggable {
     LiftExtras.init()
 
     // don't include the liftAjax.js code. It's served statically.
-    LiftRules.autoIncludeAjaxCalc.default.set(() => (session: LiftSession) => false)
+    LiftRules.autoIncludeAjaxCalc.default.set(() => () => (session: LiftSession) => false)
 
     // Mailer
     Mailer.devModeSend.default.set((m: MimeMessage) => logger.info("Dev mode message:\n" + prettyPrintMime(m)))

@@ -23,7 +23,7 @@ class UserSpec extends BaseMongoSessionWordSpec {
 
       // save to db
       newUser.password.hashIt
-      newUser.save
+      newUser.save(false)
 
       // retrieve from db and compare
       val userFromDb = User.find(newUser.id.get)
@@ -48,7 +48,7 @@ class UserSpec extends BaseMongoSessionWordSpec {
       newUser.validate.length should equal (0)
 
       // save to db
-      newUser.save
+      newUser.save(false)
 
       // retrieve from db and compare
       val userFromDb = User.find(newUser.id.get)

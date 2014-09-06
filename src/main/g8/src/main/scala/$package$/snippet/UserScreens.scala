@@ -29,8 +29,11 @@ object AccountScreen extends BaseCurrentUserScreen {
   addFields(() => userVar.is.accountScreenFields)
 
   def finish() {
-    userVar.is.save
-    S.notice("Account settings saved")
+    userVar.is.saveBox match {
+      case Empty => S.warning("Empty save")
+      case Failure(msg, _, _) => S.error(msg)
+      case Full(_) => S.notice("Account settings saved")
+    }
   }
 }
 
@@ -63,8 +66,11 @@ object PasswordScreen extends BaseCurrentUserScreen with BasePasswordScreen {
   def finish() {
     userVar.is.password(passwordField.is)
     userVar.is.password.hashIt
-    userVar.is.save
-    S.notice("New password saved")
+    userVar.is.saveBox match {
+      case Empty => S.warning("Empty save")
+      case Failure(msg, _, _) => S.error(msg)
+      case Full(_) => S.notice("New password saved")
+    }
   }
 }
 
@@ -90,8 +96,11 @@ object ProfileScreen extends BaseCurrentUserScreen {
   addFields(() => userVar.is.profileScreenFields)
 
   def finish() {
-    userVar.is.save
-    S.notice("Profile settings saved")
+    userVar.is.saveBox match {
+      case Empty => S.warning("Empty save")
+      case Failure(msg, _, _) => S.error(msg)
+      case Full(_) => S.notice("Profile settings saved")
+    }
   }
 }
 
@@ -120,9 +129,13 @@ object RegisterScreen extends BaseRegisterScreen with BasePasswordScreen {
     val user = userVar.is
     user.password(passwordField.is)
     user.password.hashIt
-    user.save
-    User.logUserIn(user, true)
-    if (rememberMe) User.createExtSession(user.id.get)
-    S.notice("Thanks for signing up!")
+    user.saveBox match {
+      case Empty => S.warning("Empty save")
+      case Failure(msg, _, _) => S.error(msg)
+      case Full(u) =>
+        User.logUserIn(u, true)
+        if (rememberMe) User.createExtSession(u.id.get)
+        S.notice("Thanks for signing up!")
+    }
   }
 }

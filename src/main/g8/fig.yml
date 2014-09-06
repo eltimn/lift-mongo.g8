@@ -1,0 +1,8 @@
+# sudo mkdir -p /srv/$name;format="norm"$/mongo-data/db
+mongo:
+  image: dockerfile/mongodb
+  command: "/usr/bin/mongod --noprealloc --smallfiles"
+  ports:
+    - "$mongo_port$:27017"
+  volumes:
+    - /srv/$name;format="norm"$/mongo-data:/data

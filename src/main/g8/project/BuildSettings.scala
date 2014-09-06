@@ -9,26 +9,15 @@ import sbtbuildinfo.Plugin._
 import sbtclosure.SbtClosurePlugin._
 
 object BuildSettings {
-  object Ver {
-    val lift = "2.6-M2"
-    val lift_edition = "2.6"
-    val jetty = "8.1.13.v20130916"
-  }
 
   val buildTime = SettingKey[String]("build-time")
 
   val basicSettings = Defaults.defaultSettings ++ Seq(
     name := "$name;format="norm"$",
     version := "$project_version$",
-    organization := "$sbt_organization$",
-    scalaVersion := "2.10.3",
-    scalacOptions <<= scalaVersion map { sv: String =>
-      if (sv.startsWith("2.10."))
-        Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps", "-language:implicitConversions")
-      else
-        Seq("-deprecation", "-unchecked")
-    },
-    resolvers += "Sonatype Releases" at "http://oss.sonatype.org/content/repositories/releases"
+    scalaVersion := "2.11.2",
+    scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps", "-language:implicitConversions"),
+    resolvers ++= Dependencies.resolutionRepos
   )
 
   val liftAppSettings = basicSettings ++

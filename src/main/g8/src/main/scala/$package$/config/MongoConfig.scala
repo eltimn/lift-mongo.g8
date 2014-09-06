@@ -6,14 +6,16 @@ import common._
 import http._
 import json._
 import mongodb._
-import util.Props
+import util._
 
-import com.mongodb.{DBAddress, MongoClient}
+import com.mongodb._
 
 object MongoConfig extends Factory with Loggable {
 
+  import scala.collection.JavaConversions._
+
   // configure your MongoMetaRecords to use this. See lib/RogueMetaRecord.scala.
-  val defaultId = new FactoryMaker[MongoIdentifier](DefaultMongoIdentifier) {}
+  val defaultId = new FactoryMaker[ConnectionIdentifier](DefaultConnectionIdentifier) {}
 
   def init() {
     /**
@@ -34,17 +36,16 @@ object MongoConfig extends Factory with Loggable {
      */
     (Props.get("mongo.default.user"), Props.get("mongo.default.pwd")) match {
       case (Full(user), Full(pwd)) =>
-        MongoDB.defineDbAuth(
-          DefaultMongoIdentifier,
-          new MongoClient(defaultDbAddress),
-          defaultDbAddress.getDBName,
-          user,
-          pwd
+        val creds = MongoCredential.createMongoCRCredential(user, defaultDbAddress.getDBName, pwd.toCharArray)
+        MongoDB.defineDb(
+          defaultId.vend,
+          new MongoClient(defaultDbAddress, List(creds)),
+          defaultDbAddress.getDBName
         )
         logger.info("MongoDB inited using authentication: %s".format(defaultDbAddress.toString))
       case _ =>
         MongoDB.defineDb(
-          DefaultMongoIdentifier,
+          defaultId.vend,
           new MongoClient(defaultDbAddress),
           defaultDbAddress.getDBName
         )

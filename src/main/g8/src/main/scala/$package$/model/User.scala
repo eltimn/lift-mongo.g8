@@ -68,7 +68,7 @@ class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
     def allFields = List(username, email)
   }
 
-  def whenCreated: DateTime = new DateTime(id.get.getTime)
+  def whenCreated: DateTime = new DateTime(id.get.getDate)
 }
 
 object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User] with Loggable {
@@ -76,8 +76,8 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
 
   override def collectionName = "user.users"
 
-  ensureIndex((email.name -> 1), true)
-  ensureIndex((username.name -> 1), true)
+  createIndex((email.name -> 1), true)
+  createIndex((username.name -> 1), true)
 
   def findByEmail(in: String): Box[User] = find(email.name, in)
   def findByUsername(in: String): Box[User] = find(username.name, in)
@@ -115,7 +115,7 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
       case Full(at) => find(at.userId.get).map(user => {
         if (user.validate.length == 0) {
           user.verified(true)
-          user.save
+          user.update
           logUserIn(user)
           at.delete_!
           RedirectResponse(loginTokenAfterUrl)
@@ -136,34 +136,35 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
   def sendLoginToken(user: User): Unit = {
     import net.liftweb.util.Mailer._
 
-    val token = LoginToken.createForUserId(user.id.get)
+    LoginToken.createForUserIdBox(user.id.get).foreach { token =>
 
-    val msgTxt =
-      """
-        |Someone requested a link to change your password on the %s website.
-        |
-        |If you did not request this, you can safely ignore it. It will expire 48 hours from the time this message was sent.
-        |
-        |Follow the link below or copy and paste it into your internet browser.
-        |
-        |%s
-        |
-        |Thanks,
-        |%s
-      """.format(siteName, token.url, sysUsername).stripMargin
+      val msgTxt =
+        """
+          |Someone requested a link to change your password on the %s website.
+          |
+          |If you did not request this, you can safely ignore it. It will expire 48 hours from the time this message was sent.
+          |
+          |Follow the link below or copy and paste it into your internet browser.
+          |
+          |%s
+          |
+          |Thanks,
+          |%s
+        """.format(siteName, token.url, sysUsername).stripMargin
 
-    sendMail(
-      From(MongoAuth.systemFancyEmail),
-      Subject("%s Password Help".format(siteName)),
-      To(user.fancyEmail),
-      PlainMailBodyType(msgTxt)
-    )
+      sendMail(
+        From(MongoAuth.systemFancyEmail),
+        Subject("%s Password Help".format(siteName)),
+        To(user.fancyEmail),
+        PlainMailBodyType(msgTxt)
+      )
+    }
   }
 
   /*
    * ExtSession
    */
-  def createExtSession(uid: ObjectId) = ExtSession.createExtSession(uid)
+  def createExtSession(uid: ObjectId): Box[Unit] = ExtSession.createExtSessionBox(uid)
 
   /*
   * Test for active ExtSession.
@@ -187,20 +188,3 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
 }
 
 case class LoginCredentials(email: String, isRememberMe: Boolean = false)
-
-object SystemUser {
-  private val username = "$name;format="norm"$"
-  private val email = "$admin_email$"
-
-  lazy val user: User = User.find("username", username) openOr {
-    User.createRecord
-      .name("$name$")
-      .username(username)
-      .email(email)
-      .locale("en_US")
-      .timezone("America/Chicago")
-      .verified(true)
-      .password("$admin_password$", true)
-      .save
-  }
-}

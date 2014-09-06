@@ -13,12 +13,13 @@ import Helpers._
 
 import net.liftmodules.extras.Gravatar
 
-class HelloWorld {
-  lazy val date: Box[Date] = DependencyFactory.inject[Date] // inject the date
+object HelloWorld extends SimpleInjector {
+
+  lazy val date = new Inject(() => Full(Helpers.now)) {}
 
   // replace the contents of the element with id "time" with the date
    def render = {
-    "#time *" #> date.map(_.toString) &
+    "#time *" #> date.vend.map(_.toString) &
     "#avatar *" #> Gravatar.imgTag("test@nowhere.com")
   }
 }
