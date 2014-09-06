@@ -14,5 +14,5 @@ import com.foursquare.rogue._
 trait RogueMetaRecord[A <: MongoRecord[A]] extends MongoMetaRecord[A] with LiftRogue {
   self: A =>
 
-  override def mongoIdentifier = MongoConfig.defaultId.vend
+  override def connectionIdentifier = MongoConfig.defaultId.vend
 }
