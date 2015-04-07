@@ -9,14 +9,13 @@ import mongodb._
 import util._
 import util.Helpers.randomString
 
-import com.mongodb.{MongoClient, ServerAddress}
+import com.mongodb._
 
 // The sole mongo object for testing
 object TestMongo {
-  val mongo = new MongoClient(new ServerAddress(
-    Props.get("mongo.default.host", "127.0.0.1"),
-    Props.getInt("mongo.default.port", 27017)
-  ))
+  val mongo = new MongoClient(
+    new MongoClientURI("mongodb://"+Props.get("mongo.default.uri", "$mongo_host$:$mongo_port$"))
+  )
 }
 
 /**

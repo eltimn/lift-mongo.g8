@@ -1,0 +1,9 @@
+div.gravatar {
+  float:left;
+  margin-left:10px;
+  max-width: 320px;
+
+  img {
+    padding-top:10px;
+  }
+}

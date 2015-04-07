@@ -3,11 +3,10 @@ package bootstrap.liftweb
 import scala.xml.{Null, UnprefixedAttribute}
 import javax.mail.internet.MimeMessage
 
-import net.liftweb._
-import common._
-import http._
-import util._
-import util.Helpers._
+import net.liftweb.common._
+import net.liftweb.http._
+import net.liftweb.util._
+import net.liftweb.util.Helpers._
 
 import $package$.config._
 import $package$.model.User
