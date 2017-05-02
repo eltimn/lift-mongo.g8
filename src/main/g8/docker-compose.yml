@@ -1,8 +1,8 @@
-# sudo mkdir -p /srv/$name;format="norm"$/mongo-data/db
+---
+# https://hub.docker.com/_/mongo/
+
 mongo:
-  image: dockerfile/mongodb
-  command: "/usr/bin/mongod --noprealloc --smallfiles"
+  image: mongo:3.2.12
+  command: "mongod --httpinterface"
   ports:
     - "$mongo_port$:27017"
-  volumes:
-    - /srv/$name;format="norm"$/mongo-data:/data

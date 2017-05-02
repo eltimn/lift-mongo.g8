@@ -22,6 +22,14 @@ Versions
 
 Instead of allowing the user to select Scala, Lift, and SBT versions, this template uses predetermined versions. This will hopefully make it easier for new users to get the proper versions of dependent libraries.
 
+License
+=======
+Written in 2017 by Tim Nelson.
+
+To the extent possible under law, the author(s) have dedicated all copyright and related
+and neighboring rights to this template to the public domain worldwide.
+This template is distributed without any warranty. See <http://creativecommons.org/publicdomain/zero/1.0/>
+
 Notes
 =====
 
