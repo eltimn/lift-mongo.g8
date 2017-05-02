@@ -7,7 +7,7 @@ import scala.xml.XML
 import net.liftweb.common.Full
 import net.liftweb.util.Html5
 
-object HtmlSourceSpec extends BaseWordSpec {
+class HtmlSourceSpec extends BaseWordSpec {
 
   "HTML Sources" should {
 

@@ -39,7 +39,6 @@ object LiftProjectBuild extends Build {
         "org.webjars"       % "jquery"                         % "2.1.3",
         "org.webjars"       % "bootstrap"                      % "3.3.4"
       ) ++
-      container("org.eclipse.jetty" % "jetty-webapp" % Ver.jetty) ++
       test("org.scalatest" %% "scalatest" % "2.2.4")
     )
     .enablePlugins(SbtWeb)

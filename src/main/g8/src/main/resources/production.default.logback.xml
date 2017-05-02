@@ -25,7 +25,7 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] - %msg%n%mdc%n</pattern>
     </layout>
 
-    <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTrackerImpl">
+    <cyclicBufferTracker>
       <bufferSize>100</bufferSize>
     </cyclicBufferTracker>
 

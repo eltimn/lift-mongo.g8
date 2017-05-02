@@ -27,4 +27,4 @@ Notes
 
 Use template locally:
 
-    g8 file://~/code/lift-mongo.g8
+    g8 file:///home/me/code/lift-mongo.g8

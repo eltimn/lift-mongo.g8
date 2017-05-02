@@ -1,8 +1,8 @@
 import sbt._
 import sbt.Keys._
 
-import com.earldouglas.xsbtwebplugin.WebPlugin.{container, webSettings}
-import com.earldouglas.xsbtwebplugin.PluginKeys._
+// import com.earldouglas.xsbtwebplugin.WebPlugin.{container, webSettings}
+// import com.earldouglas.xsbtwebplugin.PluginKeys._
 
 import com.typesafe.sbt.web.PathMapping
 import com.typesafe.sbt.web.pipeline.Pipeline
@@ -32,7 +32,7 @@ object BuildSettings {
   val basicSettings = Defaults.defaultSettings ++ Seq(
     name := "$name;format="norm"$",
     version := "$project_version$",
-    scalaVersion := "2.11.5",
+    scalaVersion := "2.11.7",
     scalacOptions := Seq("-deprecation", "-unchecked", "-feature", "-language:postfixOps", "-language:implicitConversions"),
     resolvers ++= resolutionRepos
   )
@@ -55,7 +55,7 @@ object BuildSettings {
   )
 
   val liftAppSettings = basicSettings ++
-    webSettings ++
+    // webSettings ++
     addCommandAlias("ccr", "~ ;container:start ;container:reload /") ++
     addCommandAlias("ccrs", "~ ;container:start ;container:reload / ;browserSync") ++
     seq(
@@ -102,14 +102,14 @@ object BuildSettings {
         ()
       },
 
-      (packageWebapp in Compile) <<= (packageWebapp in Compile) dependsOn ((compile in Compile), prepareAssets),
-      (start in container.Configuration) <<= (start in container.Configuration) dependsOn ((compile in Compile), prepareAssets),
+      // (packageWebapp in Compile) <<= (packageWebapp in Compile) dependsOn ((compile in Compile), prepareAssets),
+      // (start in container.Configuration) <<= (start in container.Configuration) dependsOn ((compile in Compile), prepareAssets),
 
       // add distDir and uglifyDir, where sbt-web plugins publish to, to the webapp
-      (webappResources in Compile) <+= distDir,
-      (webappResources in Compile) <+= uglifyDir,
+      // (webappResources in Compile) <+= distDir,
+      // (webappResources in Compile) <+= uglifyDir,
 
-      warPostProcess in Compile := {
+      /*warPostProcess in Compile := {
         (warPath) =>
           // scan all source js files, adding the min.js ones to the list of
           // files to digest and removing anything else
@@ -142,7 +142,7 @@ object BuildSettings {
           // remove all .map files
           listFilesRecursively(warPath, GlobFilter("*.map"))
             .foreach(f => IO.delete(f))
-      },
+      },*/
 
       browserSyncFile := (target in Compile).value / "browser-sync.txt",
       browserSync := {
