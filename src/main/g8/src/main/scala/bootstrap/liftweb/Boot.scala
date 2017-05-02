@@ -5,6 +5,7 @@ import javax.mail.internet.MimeMessage
 
 import net.liftweb.common._
 import net.liftweb.http._
+import net.liftweb.http.js.JE.JsRaw
 import net.liftweb.util._
 import net.liftweb.util.Helpers._
 
@@ -64,11 +65,11 @@ class Boot extends Loggable {
 
     // Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
-      Full(() => LiftRules.jsArtifacts.show("ajax-spinner").cmd)
+      Full(() => JsRaw("jQuery('#ajax-spinner').removeClass('hidden')").cmd)
 
     // Make the spinny image go away when it ends
     LiftRules.ajaxEnd =
-      Full(() => LiftRules.jsArtifacts.hide("ajax-spinner").cmd)
+      Full(() => JsRaw("jQuery('#ajax-spinner').addClass('hidden')").cmd)
 
     // Force the request to be UTF-8
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
@@ -79,6 +80,39 @@ class Boot extends Loggable {
     // Mailer
     Mailer.devModeSend.default.set((m: MimeMessage) => logger.info("Dev mode message:\n" + prettyPrintMime(m)))
     Mailer.testModeSend.default.set((m: MimeMessage) => logger.info("Test mode message:\n" + prettyPrintMime(m)))
+
+    // Security Rules
+    val csp = ContentSecurityPolicy(
+      fontSources = List(
+        ContentSourceRestriction.Self,
+        ContentSourceRestriction.Host("https://maxcdn.bootstrapcdn.com")
+      ),
+      styleSources = List(
+        ContentSourceRestriction.Self,
+        ContentSourceRestriction.UnsafeInline,
+        ContentSourceRestriction.Host("https://maxcdn.bootstrapcdn.com")
+      ),
+      scriptSources = List(
+        ContentSourceRestriction.Self,
+        ContentSourceRestriction.UnsafeEval, // Lift needs this
+        ContentSourceRestriction.UnsafeInline,
+        ContentSourceRestriction.Host("https://maxcdn.bootstrapcdn.com"),
+        ContentSourceRestriction.Host("https://code.jquery.com")
+      )
+    )
+
+    val httpRules =
+      if (Props.devMode) {
+        None
+      } else {
+        Some(HttpsRules.secure)
+      }
+
+    LiftRules.securityRules = () => SecurityRules(
+      httpRules,
+      Some(csp),
+      enforceInOtherModes = true
+    )
   }
 
   private def prettyPrintMime(m: MimeMessage): String = {

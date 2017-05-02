@@ -1,60 +1,44 @@
 <div data-lift="surround?with=default;at=content">
   <div data-lift="Notices"></div>
-  <div class="row">
-    <form data-lift="Form.ajax?class=form-horizontal">
-      <span lift="UserLogin">
-        <fieldset>
-          <div class="form-group">
-            <label class="control-label" for="email"></label>
-            <div class="controls">
-              <p><strong>Enter your email address:</strong></p>
-              <input class="form-control" maxlength="254" id="id_email" size="32" name="email" type="text" value="" />
-              <span data-alertid="id_email_err" form-alert=""></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label"></label>
-            <div class="controls">
-              <p><strong>Do you have a $name$ password?</strong></p>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label"></label>
-            <div class="controls">
-              <input id="no_password" /> <span>No, help me log in.</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label"></label>
-            <div class="controls">
-              <input id="yes_password" /> <span>Yes, I have a <strong>password</strong>:</span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label"></label>
-            <div class="controls">
-              <input class="form-control" id="id_password" />
-              <span data-alertid="id_password_err" form-alert=""></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label"></label>
-            <div class="controls">
-              <label class="checkbox">
-                <input class="xlarge" name="remember" />
-                Remember me when I come back later.
-              </label>
-            </div>
-          </div>
-        </fieldset>
-        <div class="form-actions">
-          <div class="actions">
-            <input id="id_submit" />
-            <input type="submit" class="btn btn-primary" value="Submit"></input>
-            <span lift="Menu.item?name=Home;a:class=btn btn-default">Cancel</span>
-          </div>
+  <div data-lift="UserLogin">
+    <form data-lift="Form.ajax">
+      <fieldset>
+        <div class="form-group">
+          <label class="control-label" for="email">Enter your email address:</label>
+          <input class="form-control" maxlength="254" id="id_email" size="32" name="email" type="text" value="" />
+          <span data-alertid="id_email_err" form-alert=""></span>
         </div>
-      </span>
+        <div class="form-group">
+          <p><strong>Do you have a limo-test3 password?</strong></p>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input id="no_password" /> <span>No, help me log in.</span>
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input id="yes_password" /> <span>Yes, I have a <strong>password</strong>:</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <input class="form-control" id="id_password" />
+          <span data-alertid="id_password_err" form-alert=""></span>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input class="xlarge" name="remember" />
+              Remember me when I come back later.
+          </label>
+        </div>
+      </fieldset>
+      <div class="form-actions">
+        <div class="actions">
+          <input id="id_submit" />
+          <input type="submit" class="btn btn-primary" value="Submit"></input>
+          <span lift="Menu.item?name=Home;a:class=btn btn-default">Cancel</span>
+        </div>
+      </div>
     </form>
   </div>
   <tail>

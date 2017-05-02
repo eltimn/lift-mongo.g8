@@ -10,7 +10,7 @@ import net.liftweb.common._
 import net.liftweb.http.{StringField => _, BooleanField => _, _}
 import net.liftweb.mongodb.record.field._
 import net.liftweb.record.field._
-import net.liftweb.util.FieldContainer
+import net.liftweb.util.{FieldContainer, FieldError, FieldIdentifier}
 
 import net.liftmodules.mongoauth._
 import net.liftmodules.mongoauth.field._
@@ -52,21 +52,6 @@ class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
       super.validations
   }
 
-  /**
-    * FieldContainers for various LiftScreeens.
-    */
-  def accountScreenFields = new FieldContainer {
-    def allFields = List(username, email, locale, timezone)
-  }
-
-  def profileScreenFields = new FieldContainer {
-    def allFields = List(name, location, bio)
-  }
-
-  def registerScreenFields = new FieldContainer {
-    def allFields = List(username, email)
-  }
-
   def whenCreated: DateTime = new DateTime(id.get.getDate)
 }
 
@@ -75,6 +60,11 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
   override def collectionName = "user.users"
   override def connectionIdentifier = MongoConfig.defaultId.vend
 
+  /** Note: this will be called multiple times if
+    * run on multiple servers. Mongo won't create an index
+    * if one already exists, but it's best to create indexes
+    * manually.
+    */
   // createIndex((email.name -> 1), true)
   // createIndex((username.name -> 1), true)
 
@@ -118,10 +108,9 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
           logUserIn(user)
           at.delete_!
           RedirectResponse(loginTokenAfterUrl)
-        }
-        else {
+        } else {
           at.delete_!
-          regUser(user)
+          loginCredentials(LoginCredentials(user.email.get))
           RedirectWithState(registerUrl, RedirectState(() => { S.notice("Please complete the registration form") }))
         }
       }).openOr(RedirectWithState(indexUrl, RedirectState(() => { S.error("User not found") })))
@@ -172,7 +161,8 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
     ignoredReq => {
       if (currentUserId.isEmpty) {
         ExtSession.handleExtSession match {
-          case Full(es) => find(es.userId.get).foreach { user => logUserIn(user, false) }
+          case Full(es) =>
+            find(es.userId.get).foreach { user => logUserIn(user, false) }
           case Failure(msg, _, _) =>
             logger.warn("Error logging user in with ExtSession: %s".format(msg))
           case Empty =>
@@ -181,9 +171,31 @@ object User extends User with ProtoAuthUserMeta[User] with Loggable {
     }
   }
 
+  private val pwdMinLength = 6
+  private val pwdMaxLength = 256
+
+  private val passwordFieldId = new FieldIdentifier {
+    override def uniqueFieldId: Box[String] = Full("password_id")
+  }
+
+  private val password2FieldId = new FieldIdentifier {
+    override def uniqueFieldId: Box[String] = Full("password2_id")
+  }
+
+  def validatePasswords(password: String, password2: String): List[FieldError] = {
+    if (password.length < pwdMinLength) {
+      List(FieldError(passwordFieldId, s"Password must be at least \${pwdMinLength} characters"))
+    } else if (password.length > pwdMaxLength) {
+      List(FieldError(passwordFieldId, s"Password must be \${pwdMaxLength} characters or less"))
+    } else if (password != password2) {
+      List(FieldError(password2FieldId, "Passwords must match"))
+    } else {
+      Nil
+    }
+  }
+
   // used during login process
   object loginCredentials extends SessionVar[LoginCredentials](LoginCredentials(""))
-  object regUser extends SessionVar[User](createRecord.email(loginCredentials.is.email))
 }
 
 case class LoginCredentials(email: String, isRememberMe: Boolean = false)

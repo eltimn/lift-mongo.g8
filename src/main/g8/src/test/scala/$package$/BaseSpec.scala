@@ -19,7 +19,7 @@ trait BaseMongoSessionWordSpec extends BaseWordSpec with MongoSessionSuite {
   def mongoIdentifier = MongoConfig.defaultId
 }
 
-trait WithSessionSpec extends SuiteMixin { this: Suite =>
+trait WithSessionSpec extends TestSuiteMixin { this: TestSuite =>
 
   protected def session = new LiftSession("", randomString(20), Empty)
 

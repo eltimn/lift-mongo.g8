@@ -169,7 +169,7 @@ object UserLogin extends Loggable {
     "#no_password" #> radios(0) &
     "#yes_password" #> radios(1) &
     "name=remember" #> SHtml.checkbox(remember, remember = _) &
-    "#id_submit" #> SHtml.hidden(doSubmit)
+    "#id_submit" #> SHtml.hidden(doSubmit _)
   }
 }
 

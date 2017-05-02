@@ -27,6 +27,8 @@ case class MenuLoc(menu: Menu) {
 object Site extends Locs {
   import MenuGroups._
 
+  protected def userMeta = User
+
   // locations (menu entries)
   val home = MenuLoc(Menu.i("Home") / "index" >> TopBarGroup)
   val loginToken = MenuLoc(buildLoginTokenMenu)

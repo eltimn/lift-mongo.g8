@@ -1,3 +1,26 @@
 <div data-lift="surround?with=settings-wrap;at=content">
-  <div data-lift="AccountScreen?ajax=true"></div>
+  <div data-lift="Settings.account">
+    <form data-lift="form.ajax">
+      <div class="form-group">
+        <label for="username_id">Username</label>
+        <input type="text" class="form-control" id="username_id" placeholder="Username">
+        <span data-alertid="username_id" form-alert=""></span>
+      </div>
+      <div class="form-group">
+        <label for="email_id">Email</label>
+        <input type="email" class="form-control" id="email_id" placeholder="Email">
+        <span data-alertid="email_id" form-alert=""></span>
+      </div>
+      <div class="form-group">
+        <label for="locale_id">Locale</label>
+        <select class="form-control" id="locale_id"></select>
+      </div>
+      <div class="form-group">
+        <label for="timezone_id">Timezone</label>
+        <select class="form-control" id="timezone_id"></select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <span data-lift="Menu.item?name=Home;a:class=btn btn-default">Cancel</span>
+    </form>
+  </div>
 </div>

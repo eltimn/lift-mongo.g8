@@ -1,4 +1,34 @@
 <div data-lift="surround?with=default;at=content">
   <div data-lift="Notices"></div>
-  <div data-lift="RegisterScreen"></div>
+  <div data-lift="Register">
+    <form data-lift="form.ajax">
+      <div class="form-group">
+        <label for="username_id">Username</label>
+        <input type="text" class="form-control" id="username_id" placeholder="Username">
+        <span data-alertid="username_id" form-alert=""></span>
+      </div>
+      <div class="form-group">
+        <label for="email_id">Email</label>
+        <input type="email" class="form-control" id="email_id" placeholder="Email">
+        <span data-alertid="email_id" form-alert=""></span>
+      </div>
+      <div class="form-group">
+        <label for="password_id">Password</label>
+        <input type="password" class="form-control" id="password_id" placeholder="Password">
+        <span data-alertid="password_id" form-alert=""></span>
+      </div>
+      <div class="form-group">
+        <label for="password2_id">Repeat Password</label>
+        <input type="password" class="form-control" id="password2_id" placeholder="Repeat Password">
+        <span data-alertid="password2_id" form-alert=""></span>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" id="remember_me"> Remember me when I come back later.
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <span data-lift="Menu.item?name=Login;a:class=btn btn-default">Cancel</span>
+    </form>
+  </div>
 </div>

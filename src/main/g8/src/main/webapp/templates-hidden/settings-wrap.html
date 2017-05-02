@@ -1,18 +1,19 @@
 <div data-lift="surround?with=base-wrap;at=content">
   <span data-lift="CurrentUser.title"></span>
   <div class="main-content">
+    <div class="pull-right hidden" id="ajax-spinner">
+      <img src="/img/spinner.gif" width="16" height="16"/>
+    </div>
     <div class="page-header">
       <span lift="CurrentUser.header"></span>
-      <div id="ajax-spinner" class="pull-right" style="display: none;">
-        <img src="/img/spinner.gif" width="16" height="16"/>
-      </div>
     </div>
     <div class="row">
-      <div class="settings-main">
+      <div class="col-xs-12 col-md-8">
         <div data-lift="Notices"></div>
         <div id="content"></div>
+        <hr />
       </div>
-      <div class="settings-secondary">
+      <div class="col-xs-6 col-md-4">
         <ul data-lift="Menus.group?group=settings" class="nav nav-pills nav-stacked"></ul>
       </div>
     </div>

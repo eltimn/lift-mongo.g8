@@ -16,9 +16,7 @@ Building
 This app requires [sbt](http://www.scala-sbt.org/). To build for the first time, run:
 
     bash\$ sbt
-    > ~;container:start; container:reload /
-
-The alias `ccr` is provided so you don't have to remember that.
+    > ~jetty:start
 
 That will start the app and automatically reload it whenever sources are modified. It will be running on http://localhost:8080
 

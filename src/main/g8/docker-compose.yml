@@ -6,3 +6,10 @@ mongo:
   command: "mongod --httpinterface"
   ports:
     - "$mongo_port$:27017"
+
+mongoexpress:
+  image: mongo-express
+  links:
+    - mongo:mongo
+  ports:
+    - "8081:8081"
