@@ -1,6 +1,0 @@
-{
-  "name": "lift-poly-example",
-  "devDependencies": {
-    "browser-sync": "^2.5.2"
-  }
-}
