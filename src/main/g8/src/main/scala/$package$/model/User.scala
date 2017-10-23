@@ -1,17 +1,16 @@
 package $package$
 package model
 
-import lib.RogueMetaRecord
+import $package$.config.MongoConfig
 
 import org.bson.types.ObjectId
 import org.joda.time.DateTime
 
-import net.liftweb._
-import common._
-import http.{StringField => _, BooleanField => _, _}
-import mongodb.record.field._
-import record.field._
-import util.FieldContainer
+import net.liftweb.common._
+import net.liftweb.http.{StringField => _, BooleanField => _, _}
+import net.liftweb.mongodb.record.field._
+import net.liftweb.record.field._
+import net.liftweb.util.FieldContainer
 
 import net.liftmodules.mongoauth._
 import net.liftmodules.mongoauth.field._
@@ -53,9 +52,9 @@ class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
       super.validations
   }
 
-  /*
-   * FieldContainers for various LiftScreeens.
-   */
+  /**
+    * FieldContainers for various LiftScreeens.
+    */
   def accountScreenFields = new FieldContainer {
     def allFields = List(username, email, locale, timezone)
   }
@@ -71,13 +70,13 @@ class User private () extends ProtoAuthUser[User] with ObjectIdPk[User] {
   def whenCreated: DateTime = new DateTime(id.get.getDate)
 }
 
-object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User] with Loggable {
-  import mongodb.BsonDSL._
+object User extends User with ProtoAuthUserMeta[User] with Loggable {
 
   override def collectionName = "user.users"
+  override def connectionIdentifier = MongoConfig.defaultId.vend
 
-  createIndex((email.name -> 1), true)
-  createIndex((username.name -> 1), true)
+  // createIndex((email.name -> 1), true)
+  // createIndex((username.name -> 1), true)
 
   def findByEmail(in: String): Box[User] = find(email.name, in)
   def findByUsername(in: String): Box[User] = find(username.name, in)
@@ -94,18 +93,18 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
     }
   )
 
-  /*
-   * MongoAuth vars
-   */
+  /**
+    * MongoAuth vars
+    */
   private lazy val siteName = MongoAuth.siteName.vend
   private lazy val sysUsername = MongoAuth.systemUsername.vend
   private lazy val indexUrl = MongoAuth.indexUrl.vend
   private lazy val registerUrl = MongoAuth.registerUrl.vend
   private lazy val loginTokenAfterUrl = MongoAuth.loginTokenAfterUrl.vend
 
-  /*
-   * LoginToken
-   */
+  /**
+    * LoginToken
+    */
   override def handleLoginToken: Box[LiftResponse] = {
     val resp = S.param("token").flatMap(LoginToken.findByStringId) match {
       case Full(at) if (at.expires.isExpired) => {
@@ -161,14 +160,14 @@ object User extends User with ProtoAuthUserMeta[User] with RogueMetaRecord[User]
     }
   }
 
-  /*
-   * ExtSession
-   */
+  /**
+    * ExtSession
+    */
   def createExtSession(uid: ObjectId): Box[Unit] = ExtSession.createExtSessionBox(uid)
 
-  /*
-  * Test for active ExtSession.
-  */
+  /**
+    * Test for active ExtSession.
+    */
   def testForExtSession: Box[Req] => Unit = {
     ignoredReq => {
       if (currentUserId.isEmpty) {

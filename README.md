@@ -1,18 +1,16 @@
 Lift MongoDB Project
 --------------------
 
-[g8](http://github.com/n8han/giter8) template to get a Lift-MongoDB webapp up and running quickly. The template generates a project that uses [Twitter's Bootstrap](http://twitter.github.com/bootstrap/) and implements the [Mongoauth Lift Module](https://github.com/eltimn/lift-mongoauth). It uses SBT as the build tool.
+[g8](https://github.com/foundweekends/giter8) template to get a Lift-MongoDB webapp up and running quickly. The template generates a project that uses [Twitter's Bootstrap](http://twitter.github.com/bootstrap/) and implements the [Mongoauth Lift Module](https://github.com/eltimn/lift-mongoauth). It uses SBT as the build tool.
 
 Usage
 =====
-
-Install [giter8](http://github.com/n8han/giter8#readme) for more information.
 
 Install [SBT](http://www.scala-sbt.org/)
 
 In a shell, run the following in the parent directory of the new project:
 
-    g8 eltimn/lift-mongo
+    sbt new eltimn/lift-mongo
     cd <project-name>
 
 Please see the README file in your new project for further instructions on configuring and running your app.
@@ -35,4 +33,4 @@ Notes
 
 Use template locally:
 
-    g8 file://~/code/lift-mongo.g8
+    sbt new file:///home/nelly/code/lift-mongo.g8

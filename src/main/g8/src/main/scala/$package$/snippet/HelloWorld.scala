@@ -1,8 +1,6 @@
 package $package$
 package snippet
 
-import $package$.lib._
-
 import java.util.Date
 import scala.xml.{NodeSeq, Text}
 

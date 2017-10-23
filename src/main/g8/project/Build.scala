@@ -28,10 +28,6 @@ object LiftProjectBuild extends Build {
         "net.liftmodules"   %% ("extras_"+Ver.lift_edition)    % "0.4",
         "net.liftmodules"   %% ("mongoauth_"+Ver.lift_edition) % "0.6",
         "ch.qos.logback"    % "logback-classic"                % "1.1.2",
-        "com.foursquare"    %% "rogue-field"                   % "2.5.0" intransitive(),
-        "com.foursquare"    %% "rogue-core"                    % "2.5.1" intransitive(),
-        "com.foursquare"    %% "rogue-lift"                    % "2.5.1" intransitive(),
-        "com.foursquare"    %% "rogue-index"                   % "2.5.1" intransitive(),
         "org.eclipse.jetty" % "jetty-server"                   % Ver.jetty,
         "org.eclipse.jetty" % "jetty-webapp"                   % Ver.jetty
       ) ++
