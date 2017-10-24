@@ -1,15 +1,27 @@
 ---
 # https://hub.docker.com/_/mongo/
 
-mongo:
-  image: mongo:3.2.12
-  command: "mongod --httpinterface"
-  ports:
-    - "$mongo_port$:27017"
+version: '2.1'
 
-mongoexpress:
-  image: mongo-express
-  links:
-    - mongo:mongo
-  ports:
-    - "8081:8081"
+services:
+  mongo:
+    image: mongo:3.4
+    command: "mongod --httpinterface"
+    ports:
+      - "$mongo_port$:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  mongoexpress:
+    image: mongo-express
+    depends_on:
+      - mongo
+    ports:
+      - "8081:8081"
+    command: sh -c 'sleep 5 && tini -- node app'
+    environment:
+      TINI_SUBREAPER: 'true'
+
+volumes:
+  mongo-data:
+
