@@ -10,7 +10,7 @@ Install [SBT](http://www.scala-sbt.org/)
 
 In a shell, run the following in the parent directory of the new project:
 
-    sbt new eltimn/lift-mongo
+    sbt new eltimn/lift-mongo.g8
     cd <project-name>
 
 Please see the README file in your new project for further instructions on configuring and running your app.
